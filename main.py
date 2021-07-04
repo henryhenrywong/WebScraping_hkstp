@@ -16,19 +16,9 @@ sheet=workbook.active
 nest_asyncio.apply()
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
 def websearch():
     j = 1
     k = 1
-    i=1
     session = HTMLSession()
     URL = "https://www.hkstp.org/en/our-partner-companies/company-directory/"
     driver.get(URL)
@@ -48,14 +38,11 @@ def websearch():
         soup = BeautifulSoup(html, 'html.parser')
         name = soup.find_all(class_="col col-12 col-md-6 col-lg-3")
         for elem in name:
-            #print("Link: ",elem.find_all('a',href=True)[0]['href'])
             sheet.cell(row=j, column=1).value = elem.find_all('a',href=True)[0]['href']
             j=j+1
-            #print("Name: ",elem.find_all(class_="txt-card-title")[0].text)
             sheet.cell(row=k, column=2).value = elem.find_all(class_="txt-card-title")[0].text
             k=k+1
     workbook.save("Book1.xlsx")
 
 if __name__ == '__main__':
-    print_hi('PyCharm')
     websearch()
